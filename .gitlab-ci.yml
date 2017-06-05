@@ -1,0 +1,20 @@
+image: golang
+
+before_script:
+  - export CURRENT_BUILD_PATH=$(pwd)
+  - rm -rf $HOME/gopath
+  - mkdir -p $HOME/gopath/src/git.nulana.com/bobrnor/longpoll.git
+  - export GOPATH=$HOME/gopath
+  - export PATH=$PATH:$GOPATH/bin
+  - echo $PATH
+  - go version
+  - go env
+  - which go
+
+test:
+  script:
+    - cp $CURRENT_BUILD_PATH/* $HOME/gopath/src/git.nulana.com/bobrnor/longpoll.git
+    - cd $HOME/gopath
+    - go get ...
+    - cd $HOME/gopath/src/git.nulana.com/bobrnor/longpoll.git
+    - go test ./...
