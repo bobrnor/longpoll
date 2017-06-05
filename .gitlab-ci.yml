@@ -1,6 +1,11 @@
 image: golang
 
 before_script:
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - echo -e "Host git.nulana.com\n\tHostName git.nulana.com\n\tPort 2221\n\tUser git\n\n" >> ~/.ssh/config
   - export CURRENT_BUILD_PATH=$(pwd)
   - rm -rf $HOME/gopath
   - mkdir -p $HOME/gopath/src/git.nulana.com/bobrnor/longpoll.git
