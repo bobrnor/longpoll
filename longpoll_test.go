@@ -15,6 +15,15 @@ func isEqual(a, b *Longpoll) bool {
 	return reflect.DeepEqual(a.queues, b.queues)
 }
 
+func TestDefaultLongpoll0(t *testing.T) {
+	lp := DefaultLongpoll()
+	lp.Register(127)
+
+	if _, ok := lp.queues[127]; !ok {
+		t.Errorf("Queue in lp queues expected %+v", describe(lp))
+	}
+}
+
 func TestRegister0(t *testing.T) {
 	lp := NewLongpoll()
 	lp.Register(127)

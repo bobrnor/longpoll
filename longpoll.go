@@ -14,6 +14,8 @@ const (
 )
 
 var (
+	defaultLongpoll = NewLongpoll()
+
 	ErrReceiverNotFound = errors.New("Received not found")
 )
 
@@ -36,6 +38,10 @@ func NewLongpoll() *Longpoll {
 	}
 	go lp.loop()
 	return &lp
+}
+
+func DefaultLongpoll() *Longpoll {
+	return defaultLongpoll
 }
 
 func (lp *Longpoll) Register(i interface{}) *seqqueue.Queue {
