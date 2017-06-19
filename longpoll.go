@@ -14,7 +14,7 @@ const (
 )
 
 var (
-	defaultLongpoll = NewLongpoll()
+	defaultLongpoll *Longpoll
 
 	ErrReceiverNotFound = errors.New("Received not found")
 )
@@ -41,6 +41,9 @@ func NewLongpoll() *Longpoll {
 }
 
 func DefaultLongpoll() *Longpoll {
+	if defaultLongpoll == nil {
+		defaultLongpoll = NewLongpoll()
+	}
 	return defaultLongpoll
 }
 
