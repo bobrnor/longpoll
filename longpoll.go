@@ -109,11 +109,8 @@ func (lp *Longpoll) SetPurgeFunc(f PurgeFunc) {
 }
 
 func (lp *Longpoll) loop() {
-	for {
-		select {
-		case <-time.After(TickTimeout):
-			lp.purge()
-		}
+	for range time.Tick(TickTimeout) {
+		lp.purge()
 	}
 }
 
